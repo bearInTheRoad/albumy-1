@@ -75,7 +75,7 @@ class Collect(db.Model):
     collector_id = db.Column(db.Integer, db.ForeignKey('user.id'),
                              primary_key=True)
     collected_id = db.Column(db.Integer, db.ForeignKey('photo.id'),
-                             primary_key=True)
+                             primary_key=True) #两个primary key组合成一个主键
     timestamp = db.Column(db.DateTime, default=datetime.utcnow)
 
     collector = db.relationship('User', back_populates='collections', lazy='joined')
