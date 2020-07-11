@@ -35,16 +35,16 @@ $(function () {
     var flash = null;
 
     function toast(body, category) {
-        clearTimeout(flash);
+        clearTimeout(flash); //清除未完成的计时
         var $toast = $('#toast');
         if (category === 'error') {
             $toast.css('background-color', 'red')
         } else {
             $toast.css('background-color', '#333')
         }
-        $toast.text(body).fadeIn();
+        $toast.text(body).fadeIn(); //淡入
         flash = setTimeout(function () {
-            $toast.fadeOut();
+            $toast.fadeOut();// 3秒（3000ms）后淡出
         }, 3000);
     }
 
@@ -65,11 +65,11 @@ $(function () {
                         trigger: 'manual',
                         animation: false
                     });
-                    $el.popover('show');
+                    $el.popover('show'); //显示弹窗
                     $('.popover').on('mouseleave', function () {
                         setTimeout(function () {
-                            $el.popover('hide');
-                        }, 200);
+                            $el.popover('hide'); //隐藏弹窗
+                        }, 200); //等待200ms之后隐藏弹窗
                     });
                 }
             });
@@ -79,8 +79,8 @@ $(function () {
     function hide_profile_popover(e) {
         var $el = $(e.target);
 
-        if (hover_timer) {
-            clearTimeout(hover_timer);
+        if (hover_timer) { //通过hover_timer判断弹窗是否已经显示；为NULL说明已经显示，否则就是没有显示；在已经显示且鼠标离开的情况下，200ms后隐藏弹窗
+            clearTimeout(hover_timer); //取消计时
             hover_timer = null;
         } else {
             setTimeout(function () {
@@ -192,7 +192,7 @@ $(function () {
         });
     }
 
-    $('.profile-popover').hover(show_profile_popover.bind(this), hide_profile_popover.bind(this));
+    $('.profile-popover').hover(show_profile_popover.bind(this), hide_profile_popover.bind(this)); //this变量用于传入上下文
     $(document).on('click', '.follow-btn', follow.bind(this));
     $(document).on('click', '.unfollow-btn', unfollow.bind(this));
     $(document).on('click', '.collect-btn', collect.bind(this));
