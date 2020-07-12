@@ -35,10 +35,10 @@ $(function () {
 
     var flash = null;
 
-    function toast(body, category) {
+    function toast(body, category) { //定义toast函数
         clearTimeout(flash); //清除未完成的计时
-        var $toast = $('#toast');
-        if (category === 'error') {
+        var $toast = $('#toast'); //toast变量等于页面上id是toast的元素
+        if (category === 'error') { 
             $toast.css('background-color', 'red')
         } else {
             $toast.css('background-color', '#333')
