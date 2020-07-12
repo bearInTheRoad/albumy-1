@@ -60,7 +60,7 @@ def follow(username):
     current_user.follow(user)
     flash('User followed.', 'success')
     if user.receive_follow_notification:
-        push_follow_notification(follower=current_user, receiver=user)
+        push_follow_notification(follower=current_user, receiver=user) #这个函数里面实现了一个向被关注者推送提醒的功能，它跟这个函数里始终是current user的主体有区别，要注意
     return redirect_back()
 
 
