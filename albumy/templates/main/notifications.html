@@ -10,8 +10,11 @@
     <div class="row">
         <div class="col-md-3">
             <div class="nav nav-pills flex-column" role="tablist" aria-orientation="vertical">
+                <!-- 这里通过判断filter参数实际上决定了是否重新渲染这个页面 -->
+                <!-- 会把请求打到show_notification函数上 -->
                 <a class="nav-item nav-link {% if request.args.get('filter') != 'unread' %}active{% endif %}"
-                   href="{{ url_for('.show_notifications', filter='all') }}">
+                   href="{{ url_for('.show_notifications', filter='
+                         ') }}">
                     All
                 </a>
                 <a class="nav-item nav-link {% if request.args.get('filter') == 'unread' %}active{% endif %}"
@@ -27,6 +30,7 @@
                         <a class="btn btn-light btn-sm" href="{{ url_for('user.notification_setting') }}">
                             <span class="oi oi-cog" aria-hidden="true"></span> Settings
                         </a>
+                        <!-- 增加一个read all按钮，这个按钮会打到read_all_notification这个函数上 -->
                         <form class="inline" method="post" action="{{ url_for('.read_all_notification') }}">
                             <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
                             <button type="submit" class="btn btn-light btn-sm">
@@ -38,11 +42,15 @@
                 <div class="card-body">
                     {% if notifications %}
                         <ul class="list-group">
+                            <!-- 循环展示所有提示-->
                             {% for notification in notifications %}
                                 <li class="list-group-item">
+                                    <!-- 提醒包括链接，必须通过safe过滤器才能正确显示 -->
                                     {{ notification.message|safe }}
                                     <span class="float-right">
+                                        <!-- 用moment来判断距今的时间 -->
                                         {{ moment(notification.timestamp).fromNow(refresh=True) }}
+                                        <!-- 如果是没有读的，提供一个按钮去读 -->
                                         {% if notification.is_read == False %}
                                             <form class="inline"
                                                   action="{{ url_for('.read_notification', notification_id=notification.id) }}"
