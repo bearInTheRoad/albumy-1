@@ -44,7 +44,8 @@
                 {% if current_user.is_authenticated %}
                     <a class="nav-item nav-link" href="{{ url_for('main.show_notifications', filter='unread') }}">
                         <span class="oi oi-bell"></span>
-                        <span id="notification-badge"
+                        <!-- 下面的代码在导航栏上加了一个badge元素，同时有一个if语法来限制这个badge是否出现。如果未读消息是0则不出现-->
+                        <span id="notification-badge" 
                               class="{% if notification_count == 0 %}hide{% endif %} badge badge-danger badge-notification"
                               data-href="{{ url_for('ajax.notifications_count') }}">{{ notification_count }}</span>
                     </a>
