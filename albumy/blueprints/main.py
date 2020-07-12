@@ -72,7 +72,7 @@ def show_notifications():
     page = request.args.get('page', 1, type=int)
     per_page = current_app.config['ALBUMY_NOTIFICATION_PER_PAGE']
     notifications = Notification.query.with_parent(current_user)
-    filter_rule = request.args.get('filter')
+    filter_rule = request.args.get('filter') #从request的参数里接收一个filter参数作为规则 
     if filter_rule == 'unread':
         notifications = notifications.filter_by(is_read=False)
 
