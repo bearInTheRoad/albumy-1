@@ -97,7 +97,7 @@ def read_notification(notification_id):
 @main_bp.route('/notifications/read/all', methods=['POST'])
 @login_required
 def read_all_notification():
-    for notification in current_user.notifications:
+    for notification in current_user.notifications: #循环把当前用户所有的notificaiton都设置为已读
         notification.is_read = True
     db.session.commit()
     flash('All notifications archived.', 'success')
