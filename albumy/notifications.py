@@ -13,7 +13,7 @@ from albumy.models import Notification
 
 def push_follow_notification(follower, receiver):
     message = 'User <a href="%s">%s</a> followed you.' % \
-              (url_for('user.index', username=follower.username), follower.username)
+              (url_for('user.index', username=follower.username), follower.username) #这个消息是构造了一个链接，链接到关注者的主页上
     notification = Notification(message=message, receiver=receiver)
     db.session.add(notification)
     db.session.commit()
