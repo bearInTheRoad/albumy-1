@@ -223,7 +223,7 @@ $(function () {
     });
 
     if (is_authenticated) {
-        setInterval(update_notifications_count, 30000);
+        setInterval(update_notifications_count, 30000); //定期30s去轮询notification的数量
     }
 
     $("[data-toggle='tooltip']").tooltip({title: moment($(this).data('timestamp')).format('lll')})
